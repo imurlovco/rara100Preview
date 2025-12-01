@@ -47,18 +47,15 @@ async def render_page(request: Request, page: str):
 
         title = f"라라100개 미리보기 - 라라100개 플러스 {suffix_kor}"
         
-        return templates.TemplateResponse(
-            "rara100plus.html",
-            {
-                "request": request,
-                "images": images,
-                "title": title,
-                "suffix_for": suffix_for,
-                "suffix_kor": suffix_kor,
-                "kor_name": kor_name,
-                "eng_name": eng_name
-            }
-        )
+        return templates.TemplateResponse("rara100plus.html", {
+            "request": request,
+            "images": images,
+            "title": title,
+            "suffix_for": suffix_for,
+            "suffix_kor": suffix_kor,
+            "kor_name": kor_name,
+            "eng_name": eng_name
+        })
 
     # "+"가 포함되어 있지 않을 경우: rara100.html 반환
     else:
@@ -69,13 +66,10 @@ async def render_page(request: Request, page: str):
 
         title = "라라100개 미리보기 - 라라100개"
 
-        return templates.TemplateResponse(
-            "rara100.html",
-            {
-                "request": request,
-                "images": images,
-                "title": title,
-                "kor_name": kor_base_name,
-                "eng_name": eng_name
-            }
-        )
+        return templates.TemplateResponse("rara100.html",{
+            "request": request,
+            "images": images,
+            "title": title,
+            "kor_name": kor_base_name,
+            "eng_name": eng_name
+        })
