@@ -23,12 +23,17 @@ async def render_page(request: Request, page: str):
     # URL에 "rara100"이 포함되어 있지 않을 경우: 404 오류 반환
     if not page.startswith("rara100"):
         raise HTTPException(status_code=404, detail="페이지를 찾을 수 없습니다.")
+
+    eng_name = {page}
+    kor_base_name = "라라100개"
     
     # "+"가 포함되어 있을 경우: rara100plus.html 반환
     if "+" in page:
         suffix_for = page.split("+", 1)[-1]
         suffix_kor_parts = [suffix_map.get(ch, ch) for ch in suffix_for]
         suffix_kor = "".join(suffix_kor_parts)
+
+        kor_name = f"{kor_base_name} 플러스 {suffix_kor}"
 
         images = [
             f"https://pszhinenoljidriqjxou.supabase.co/storage/v1/object/public/rara100preview/{page}/{i}.avif"
@@ -44,7 +49,9 @@ async def render_page(request: Request, page: str):
                 "images": images,
                 "title": title,
                 "suffix_for": suffix_for,
-                "suffix_kor": suffix_kor
+                "suffix_kor": suffix_kor,
+                "kor_name": kor_name,
+                "eng_name": eng_name
             }
         )
     # "+"가 포함되어 있지 않을 경우: rara100.html 반환
@@ -53,7 +60,7 @@ async def render_page(request: Request, page: str):
             f"https://pszhinenoljidriqjxou.supabase.co/storage/v1/object/public/rara100preview/{page}/{i}.avif"
             for i in range(1, 101)
         ]
-    
+
         title = "라라100개 미리보기 - 라라100개"
 
         return templates.TemplateResponse(
@@ -61,6 +68,8 @@ async def render_page(request: Request, page: str):
             {
                 "request": request,
                 "images": images,
-                "title": title
+                "title": title,
+                "kor_name": kor_base_name,
+                "eng_name": eng_name
             }
         )
