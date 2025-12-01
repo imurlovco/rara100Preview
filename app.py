@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request, HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
+from urllib.parse import unquote
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -18,13 +19,16 @@ suffix_map = {
 async def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-@app.get("{page}", response_class=HTMLResponse)
+@app.get("/{page}", response_class=HTMLResponse)
 async def render_page(request: Request, page: str):
+
+    page = unquote(page)
+    page = page.replace(" ", "+")
     # URL에 "rara100"이 포함되어 있지 않을 경우: 404 오류 반환
     if not page.startswith("rara100"):
         raise HTTPException(status_code=404, detail="페이지를 찾을 수 없습니다.")
 
-    eng_name = {page}
+    eng_name = page
     kor_base_name = "라라100개"
     
     # "+"가 포함되어 있을 경우: rara100plus.html 반환
@@ -36,7 +40,7 @@ async def render_page(request: Request, page: str):
         kor_name = f"{kor_base_name} 플러스 {suffix_kor}"
 
         images = [
-            f"https://pszhinenoljidriqjxou.supabase.co/storage/v1/object/public/rara100preview/{page}/{i}.avif"
+            f"https://pszhinenoljidriqjxou.supabase.co/storage/v1/object/public/rara100preview/{page}/{i}.webp"
             for i in range(1, 101)
         ]
 
@@ -57,7 +61,7 @@ async def render_page(request: Request, page: str):
     # "+"가 포함되어 있지 않을 경우: rara100.html 반환
     else:
         images = [
-            f"https://pszhinenoljidriqjxou.supabase.co/storage/v1/object/public/rara100preview/{page}/{i}.avif"
+            f"https://pszhinenoljidriqjxou.supabase.co/storage/v1/object/public/rara100preview/{page}/{i}.webp"
             for i in range(1, 101)
         ]
 
