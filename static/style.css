@@ -1,35 +1,21 @@
 :root{ --cols: 10; }
 
 @font-face {
-    font-family: "GMarketSansBold";
-    src: url(fonts/GmarketSansTTFBold.ttf) format('truetype');
-    font-weight: bold;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "GmMrketSansMedium";
-    src: url(fonts/GmarketSansTTFMedium.ttf) format('truetype');
-    font-weight: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "GMarketSansLight";
-    src: url(fonts/GmarketSansTTFLight.ttf) format('truetype');
+    font-family: 'GMarketSans';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
     font-weight: 300;
     font-display: swap;
 }
 
 body {
-    font-family: "GMarketSansLight", sans-serif;
+    font-family: "GMarketSans", sans-serif;
     background-color: #2e2e2e;
     color: white;
     text-align: center;
 }
 
 .button-container {
-    padding-top: 10px;
+    margin: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -40,16 +26,16 @@ body {
 }
 
 button {
-    font-family: "GMarketSansMedium", sans-serif;
-    font-size: 150%;
+    font-family: "GMarketSans", sans-serif;
+    font-size: 120%;
     border-style: solid;
     border-radius: 15px;
-    border-width: 3px;
+    border-width: 2px;
     border-color: white;
     background-color: #2e2e2e;
     color: white;
-    min-width: 18vw;
-    height: 70px;
+    min-width: 16vw;
+    height: 7vh;
     cursor: pointer;
 }
 
@@ -95,4 +81,41 @@ button {
 
 @media (max-width: 600px) {
     :root{ --cols: 3;}
+}
+
+.link-container {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    overflow: hidden;
+    gap: 24px;
+}
+
+.link-container a {
+    display: block;
+    width: 100%;
+    margin: 4px 0;
+}
+
+details {
+    width: 100%;
+}
+
+a:link {
+    color: aqua;
+}
+
+a:active {
+    color: firebrick;
+}
+
+a:visited {
+    color: lightblue;
+}
+
+summary {
+    cursor: pointer;
 }
