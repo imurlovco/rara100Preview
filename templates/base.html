@@ -6,14 +6,20 @@
     <link rel="stylesheet" href="../static/style.css">
     <link rel="shortcut icon" href="" type="image/x-icon">
     <script src="../static/scripts.js"></script>
-    <title>라라100개 미리보기 - {% block title %}</title>
+    <title>{{ title }}</title>
 </head>
 <body>
     <!-- 디시콘 한글명 및 영문명 -->
-    <h1>{% block kor_name %}</h1>
-    <h3>{% block eng_name %}</h3>
+    <h1>{{ kor_name }}</h1>
+    <h3>{{ eng_name }}</h3>
 
     <!-- 디시콘 미리보기 -->
-    <div id="image-gallery"></div>
+    <div class="grid" id="grid">
+        {% for img in images %}
+        <div class="cell">
+            <img src="{{ img }}" alt="{{ kor_name }} - 이미지"   draggable="false">
+        </div>
+        {% endfor %}
+    </div>
 </body>
 </html>
