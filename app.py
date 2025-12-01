@@ -24,6 +24,7 @@ async def render_page(request: Request, page: str):
 
     page = unquote(page)
     page = page.replace(" ", "+")
+
     # URL에 "rara100"이 포함되어 있지 않을 경우: 404 오류 반환
     if not page.startswith("rara100"):
         raise HTTPException(status_code=404, detail="페이지를 찾을 수 없습니다.")
@@ -58,6 +59,7 @@ async def render_page(request: Request, page: str):
                 "eng_name": eng_name
             }
         )
+
     # "+"가 포함되어 있지 않을 경우: rara100.html 반환
     else:
         images = [
